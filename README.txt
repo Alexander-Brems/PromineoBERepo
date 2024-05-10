@@ -1,0 +1,1 @@
+This is the Repository for Alex Brems for the Promineo Tech Back-End Developer Bootcamp. Please go to a specific Week's folder for information on those assignments.
