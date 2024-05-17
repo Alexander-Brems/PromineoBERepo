@@ -72,7 +72,7 @@ public class Week04_Project {
 		System.out.println("The last name in the array is: " + names[names.length-1]);
 		
 		
-		// 4. How do you access the first element of any array
+		// 4. How do you access the first element of any array?
 		// Arrays always start at 0, so if you use 'array[0]', you will always get the first item, as shown below.
 		System.out.println("The first name in the array is: " + names[0]);
 		
@@ -118,7 +118,7 @@ public class Week04_Project {
 		
 		// 12. Create a method called 'willBuyDrink' that takes a boolean called 'isHotOutside' and a double called 'moneyInPocket', 
 		// and returns true if 'isHotOutside' is true AND 'moneyInPocket' is greater than 10.5
-		System.out.println(willBuyDrink(true, 11.5));
+		System.out.println(willBuyDrink(true, 10.5));
 		
 		
 		// 13. Create a method of your own that solves a problem.
