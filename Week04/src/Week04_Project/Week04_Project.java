@@ -118,7 +118,7 @@ public class Week04_Project {
 		
 		// 12. Create a method called 'willBuyDrink' that takes a boolean called 'isHotOutside' and a double called 'moneyInPocket', 
 		// and returns true if 'isHotOutside' is true AND 'moneyInPocket' is greater than 10.5
-		System.out.println(willBuyDrink(true, 10.5));
+		System.out.println(willBuyDrink(true, 11.5));
 		
 		
 		// 13. Create a method of your own that solves a problem.
