@@ -62,6 +62,7 @@ public class ProjectsApp {
 					
 				case 3:
 					selectProject();
+					break;
 					
 				default:
 					System.out.println("\n'" + selection + "' is not a valid option. Please try again.");
@@ -77,7 +78,7 @@ public class ProjectsApp {
 
 	private void selectProject() {
 		listAllProjects();
-		int projID = getIntInput("Enter a project ID to select it");
+		Integer projID = getIntInput("Enter a project ID to select it");
 		
 		//we clear the current project first just in case the fetch throws an exception
 		currentProject = null;

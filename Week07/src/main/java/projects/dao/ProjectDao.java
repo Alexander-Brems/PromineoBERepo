@@ -96,8 +96,8 @@ public class ProjectDao extends DaoBase {
 
 
 
-	public Optional<Project> fetchProjectByID(int projectID) {
-		String sqlStatement = "SELECT * FROM " + PROJECT_TABLE + " ORDER BY project_name";
+	public Optional<Project> fetchProjectByID(Integer projectID) {
+		String sqlStatement = "SELECT * FROM " + PROJECT_TABLE + " WHERE project_id = ?";
 		try(Connection link = DbConnection.getConnection()) {
 			startTransaction(link);
 			
@@ -105,6 +105,8 @@ public class ProjectDao extends DaoBase {
 				Project currentProject = null;
 				
 				try(PreparedStatement prepState = link.prepareStatement(sqlStatement)) {
+					
+					setParameter(prepState, 1, projectID, Integer.class);
 					
 					try (ResultSet rs = prepState.executeQuery()) {
 						if(rs.next()) {
