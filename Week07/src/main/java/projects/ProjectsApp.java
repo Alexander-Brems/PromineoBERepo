@@ -1,6 +1,7 @@
 package projects;
 
 import java.math.BigDecimal;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -16,11 +17,14 @@ public class ProjectsApp {
 	//setup some initial variables
 	// @formatter:off
 	private List<String> operations = List.of(
-			"1) Add a project"
+			"1) Add a project",
+			"2) List all projects",
+			"3) Select a project"
 			);
 	// @formatter:on
 	private Scanner scan = new Scanner(System.in);
 	private ProjectService projServe = new ProjectService();
+	private Project currentProject;
 	
 	
 	
@@ -52,16 +56,47 @@ public class ProjectsApp {
 					createProject();
 					break;
 					
+				case 2:
+					listAllProjects();
+					break;
+					
+				case 3:
+					selectProject();
+					
 				default:
 					System.out.println("\n'" + selection + "' is not a valid option. Please try again.");
 				}
 				
 			} catch(Exception e) {
 				System.out.println("\nError: " + e + " Try again.");
+				e.printStackTrace();
 			}
 		}
 		
 	}
+
+	private void selectProject() {
+		listAllProjects();
+		int projID = getIntInput("Enter a project ID to select it");
+		
+		//we clear the current project first just in case the fetch throws an exception
+		currentProject = null;
+		currentProject = projServe.fetchProjectByID(projID);
+	}
+
+
+
+	private void listAllProjects() {
+		List<Project> projects = projServe.fetchAllProjects();
+		
+		System.out.println("\nProjects:");
+		
+		for(Project project : projects) {
+			System.out.println("   " + project.getProjectId() + ": " + project.getProjectName());
+		}
+	}
+
+
 
 	private void createProject() {
 		String name = getStringInput("Enter the project Name: ");
@@ -134,6 +169,12 @@ public class ProjectsApp {
 		System.out.println("\nThese are the available selections. Press the Enter key to close the program.");
 		for (String option : operations) {
 			System.out.println("    " + option);
+		}
+		if(Objects.isNull(currentProject)) {
+			System.out.println("\nYou have no currently selected project.");
+		}
+		else {
+			System.out.println("\nYou are currently working with project: " + currentProject);
 		}
 	}
 

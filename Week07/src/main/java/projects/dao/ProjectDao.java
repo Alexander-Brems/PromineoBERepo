@@ -1,11 +1,21 @@
 package projects.dao;
 
 import java.math.BigDecimal;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
+import projects.entity.Category;
+import projects.entity.Material;
 import projects.entity.Project;
+import projects.entity.Step;
 import projects.exception.DbException;
 
 import provided.util.DaoBase;
@@ -55,6 +65,129 @@ public class ProjectDao extends DaoBase {
 			}
 		} catch(SQLException e) {
 			throw new DbException(e);
+		}
+	}
+
+
+
+	public List<Project> fetchAllProjects() {
+		String sqlStatement = "SELECT * FROM " + PROJECT_TABLE + " ORDER BY project_name";
+		try(Connection link = DbConnection.getConnection()) {
+			startTransaction(link);
+			
+			try(PreparedStatement prepState = link.prepareStatement(sqlStatement)) {
+				try(ResultSet rs = prepState.executeQuery()) {
+					List<Project> projects = new LinkedList<>();
+					
+					while(rs.next()) {
+						projects.add(extract(rs, Project.class));
+					}
+					return projects;
+				}
+				
+			} catch(Exception e) {
+				rollbackTransaction(link);
+				throw new DbException(e);
+			}
+		} catch(SQLException e) {
+			throw new DbException(e);
+		}
+	}
+
+
+
+	public Optional<Project> fetchProjectByID(int projectID) {
+		String sqlStatement = "SELECT * FROM " + PROJECT_TABLE + " ORDER BY project_name";
+		try(Connection link = DbConnection.getConnection()) {
+			startTransaction(link);
+			
+			try {
+				Project currentProject = null;
+				
+				try(PreparedStatement prepState = link.prepareStatement(sqlStatement)) {
+					
+					try (ResultSet rs = prepState.executeQuery()) {
+						if(rs.next()) {
+							currentProject = extract(rs, Project.class);
+						}
+					}
+				}
+				
+				if(Objects.nonNull(currentProject)) {
+					currentProject.getMaterials().addAll(fetchMaterialForProject(link, projectID));
+					currentProject.getSteps().addAll(fetchStepsForProject(link, projectID));
+					currentProject.getCategories().addAll(fetchCategoriesForProject(link, projectID));
+				}
+				
+				commitTransaction(link);
+				return Optional.ofNullable(currentProject);
+				
+			} catch(Exception e) {
+				rollbackTransaction(link);
+				throw new DbException(e);
+			}
+		} catch(SQLException e) {
+			throw new DbException(e);
+		}
+	}
+
+
+
+	private List<Category> fetchCategoriesForProject(Connection link, Integer projectID) throws SQLException {
+		//@formatter:off
+		String sql = ""
+				+ "SELECT c.* FROM " + CATEGORY_TABLE + " c "
+				+ "JOIN " + PROJECT_CATEGORY_TABLE + " pc USING (category_id)"
+				+ "WHERE project_id = ?";
+		//@formatter:on
+		try(PreparedStatement prepState = link.prepareStatement(sql)) {
+			setParameter(prepState, 1, projectID, Integer.class);
+			
+			try(ResultSet rs = prepState.executeQuery()) {
+				List<Category> categories = new LinkedList<>();
+				while(rs.next()) {
+					categories.add(extract(rs, Category.class));
+				}
+				return categories;
+			}
+		}
+	}
+
+
+
+	private List<Step> fetchStepsForProject(Connection link, Integer projectID) throws SQLException {
+		//@formatter:off
+		String sql = "SELECT * FROM " + STEP_TABLE + " WHERE project_id = ?";
+		//@formatter:on
+		try(PreparedStatement prepState = link.prepareStatement(sql)) {
+			setParameter(prepState, 1, projectID, Integer.class);
+			
+			try(ResultSet rs = prepState.executeQuery()) {
+				List<Step> steps = new LinkedList<>();
+				while(rs.next()) {
+					steps.add(extract(rs, Step.class));
+				}
+				return steps;
+			}
+		}
+	}
+
+
+
+	private List<Material> fetchMaterialForProject(Connection link, Integer projectID) throws SQLException {
+		//@formatter:off
+		String sql = "SELECT * FROM " + MATERIAL_TABLE + " WHERE project_id = ?";
+		//@formatter:on
+		try(PreparedStatement prepState = link.prepareStatement(sql)) {
+			setParameter(prepState, 1, projectID, Integer.class);
+			
+			try(ResultSet rs = prepState.executeQuery()) {
+				List<Material> materials = new LinkedList<>();
+				while(rs.next()) {
+					materials.add(extract(rs, Material.class));
+				}
+				return materials;
+			}
 		}
 	}
 
