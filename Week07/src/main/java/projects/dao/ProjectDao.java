@@ -205,15 +205,14 @@ public class ProjectDao extends DaoBase {
 			try(PreparedStatement prepState = link.prepareStatement(sqlState)) {
 				setParameter(prepState, 1, projectID, Integer.class);
 				
-				prepState.execute();
+				boolean deleted = prepState.execute();
 				commitTransaction(link);
-				return true;
+				return deleted;
 				
 			
 			} catch(Exception e) {
 				rollbackTransaction(link);
-				throw new DbException(e);
-				//return false;
+				return false;
 			}
 		} catch(SQLException e) {
 			throw new DbException(e);
