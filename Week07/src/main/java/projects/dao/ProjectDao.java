@@ -205,7 +205,7 @@ public class ProjectDao extends DaoBase {
 			try(PreparedStatement prepState = link.prepareStatement(sqlState)) {
 				setParameter(prepState, 1, projectID, Integer.class);
 				
-				boolean deleted = prepState.execute();
+				boolean deleted = !prepState.execute();
 				commitTransaction(link);
 				return deleted;
 				
