@@ -192,5 +192,69 @@ public class ProjectDao extends DaoBase {
 			}
 		}
 	}
+	
+	
+	public boolean deleteProject(Integer projectID) {
+		String sqlState = ""
+				+ "DELETE FROM " + PROJECT_TABLE
+				+ " WHERE project_id = ?;";
+		
+		try(Connection link = DbConnection.getConnection()) {
+			startTransaction(link);
+			
+			try(PreparedStatement prepState = link.prepareStatement(sqlState)) {
+				setParameter(prepState, 1, projectID, Integer.class);
+				
+				prepState.execute();
+				commitTransaction(link);
+				return true;
+				
+			
+			} catch(Exception e) {
+				rollbackTransaction(link);
+				throw new DbException(e);
+				//return false;
+			}
+		} catch(SQLException e) {
+			throw new DbException(e);
+		}
+	}
+
+
+
+	public boolean updateProjectData(Project newProject) {
+		String sqlState = ""
+				+ "UPDATE " + PROJECT_TABLE + " SET "
+				+ "project_name = ?, "
+				+ "estimated_hours = ?, "
+				+ "actual_hours = ?, "
+				+ "difficulty = ?, "
+				+ "notes = ? "
+				+ "WHERE project_id = ?";
+		
+		try(Connection link = DbConnection.getConnection()) {
+			startTransaction(link);
+			
+			try(PreparedStatement prepState = link.prepareStatement(sqlState)) {
+				setParameter(prepState, 1, newProject.getProjectName(), String.class);
+				setParameter(prepState, 2, newProject.getEstimatedHours(), BigDecimal.class);
+				setParameter(prepState, 3, newProject.getActualHours(), BigDecimal.class);
+				setParameter(prepState, 4, newProject.getDifficulty(), Integer.class);
+				setParameter(prepState, 5, newProject.getNotes(), String.class);
+				setParameter(prepState, 6, newProject.getProjectId(), Integer.class);
+				
+				boolean updated = prepState.executeUpdate() == 1;
+				commitTransaction(link);
+				return updated;
+				
+			
+			} catch(Exception e) {
+				rollbackTransaction(link);
+				throw new DbException(e);
+			}
+		} catch(SQLException e) {
+			throw new DbException(e);
+		}
+	}
 
 }
