@@ -1,27 +1,16 @@
-package pet.store.entity;
+package pet.store.controller.model;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
+import pet.store.entity.*;
 
-@Entity
 @Data
-public class PetStore {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+@NoArgsConstructor
+public class PetStoreData {
+
 	private Integer petStoreID;
 	private String petStoreName;
 	private String petStoreAddress;
@@ -30,20 +19,11 @@ public class PetStore {
 	private String petStoreZip;
 	private String petStorePhone;
 	
-	@OneToMany(mappedBy = "petStore", cascade = CascadeType.ALL, orphanRemoval = true)
-	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
-	private Set<Employee> employees = new HashSet<>();
+	private Set<PetStoreEmployee> employees = new HashSet<>();
 	
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "pet_store_customer", 
-		joinColumns = @JoinColumn(name = "pet_store_id"), 
-		inverseJoinColumns = @JoinColumn(name = "customer_id"))
-	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
-	private Set<Customer> customers = new HashSet<>(); 
+	private Set<PetStoreCustomer> customers = new HashSet<>();
 	
-	public PetStore(PetStore newStore) {
+	public PetStoreData(PetStore newStore) {
 		this.setPetStoreID(newStore.getPetStoreID());
 		this.setPetStoreName(newStore.getPetStoreName());
 		this.setPetStoreAddress(newStore.getPetStoreAddress());
@@ -51,12 +31,14 @@ public class PetStore {
 		this.setPetStoreState(newStore.getPetStoreState());
 		this.setPetStoreZip(newStore.getPetStoreZip());
 		this.setPetStorePhone(newStore.getPetStorePhone());
-		this.setEmployees(newStore.getEmployees());
-		this.setCustomers(newStore.getCustomers());
-	}
-	
-	public PetStore() {
 		
+		for(Employee emp : newStore.getEmployees()) {
+			this.employees.add(new PetStoreEmployee(emp));
+		}
+		
+		for(Customer cust : newStore.getCustomers()) {
+			this.customers.add(new PetStoreCustomer(cust));
+		}
 	}
 
 	public Integer getPetStoreID() {
@@ -114,20 +96,5 @@ public class PetStore {
 	public void setPetStorePhone(String petStorePhone) {
 		this.petStorePhone = petStorePhone;
 	}
-
-	public Set<Employee> getEmployees() {
-		return employees;
-	}
-
-	public void setEmployees(Set<Employee> employees) {
-		this.employees = employees;
-	}
-
-	public Set<Customer> getCustomers() {
-		return customers;
-	}
-
-	public void setCustomers(Set<Customer> customers) {
-		this.customers = customers;
-	}
+	
 }

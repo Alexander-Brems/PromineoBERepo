@@ -1,0 +1,17 @@
+{
+	"petStoreName": "Blu Mann's Pet Store",
+	"petStoreAddress": "2203 Gray Street",
+	"petStoreCity": "Broomfield",
+	"petStoreState": "CO",
+	"petStoreZip": "80720",
+	"petStorePhone": "907-275-4682"
+},
+
+{
+	"petStoreName": "Red Mann's Pet Store",
+	"petStoreAddress": "3203 Gray Street",
+	"petStoreCity": "Broomfield",
+	"petStoreState": "CO",
+	"petStoreZip": "80720",
+	"petStorePhone": "907-257-8246"
+}
