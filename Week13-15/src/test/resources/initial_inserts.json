@@ -1,0 +1,51 @@
+{
+	"petStoreName": "Blu Mann's Pet Store",
+	"petStoreAddress": "2203 Gray Street",
+	"petStoreCity": "Broomfield",
+	"petStoreState": "CO",
+	"petStoreZip": "80720",
+	"petStorePhone": "907-275-4682"
+},
+
+{
+	"petStoreName": "Red Mann's Pet Store",
+	"petStoreAddress": "3203 Gray Street",
+	"petStoreCity": "Broomfield",
+	"petStoreState": "CO",
+	"petStoreZip": "80720",
+	"petStorePhone": "907-257-8246"
+},
+
+{
+	"employeeFirstName": "Solly",
+	"employeeLastName": "Red",
+	"employeePhone": "111-111-1111",
+	"employeeJobTitle": "Cashier"
+},
+
+{
+	"employeeFirstName": "Demo",
+	"employeeLastName": "Blu",
+	"employeePhone": "907-657-2754",
+	"employeeJobTitle": "Guest Service"
+},
+
+{
+	"employeeFirstName": "Scout",
+	"employeeLastName": "Red",
+	"employeePhone": "111-111-1111",
+	"employeeJobTitle": "Order Fulfillment"
+},
+
+{
+	"customerFirstName": "Flora",
+	"customerLastName": "Pauling",
+	"customerEmail": "FloPaul2007@gmail.com"
+},
+
+{
+	"customerFirstName": "Heavy",
+	"customerLastName": "Blu",
+	"customerEmail": "HeavyWpnsGuy1917@yahoo.com"
+}
+

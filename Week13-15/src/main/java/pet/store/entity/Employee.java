@@ -37,6 +37,10 @@ public class Employee {
 		this.setPetStore(newEmp.getPetStore());
 	}
 
+	public Employee() {
+		
+	}
+
 	public Integer getEmployeeID() {
 		return employeeID;
 	}

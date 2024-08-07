@@ -36,6 +36,10 @@ public class Customer {
 		this.setPetStores(newCust.getPetStores());
 		}
 
+	public Customer() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getCustomerID() {
 		return customerID;
 	}
