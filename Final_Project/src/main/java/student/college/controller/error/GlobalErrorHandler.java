@@ -1,4 +1,4 @@
-package pet.store.controller.error;
+package student.college.controller.error;
 
 import java.time.OffsetDateTime;
 //import java.time.ZonedDateTime;
@@ -30,52 +30,12 @@ public class GlobalErrorHandler {
 		private int httpCode;
 		private String timestamp;
 		private String uri;
-		
-		public String getMessage() {
-			return message;
-		}
-		
-		public void setMessage(String message) {
-			this.message = message;
-		}
-		
-		public String getHttpReason() {
-			return httpReason;
-		}
-		
-		public void setHttpReason(String httpReason) {
-			this.httpReason = httpReason;
-		}
-		
-		public int getHttpCode() {
-			return httpCode;
-		}
-		
-		public void setHttpCode(int httpCode) {
-			this.httpCode = httpCode;
-		}
-		
-		public String getTimestamp() {
-			return timestamp;
-		}
-		
-		public void setTimestamp(String timestamp) {
-			this.timestamp = timestamp;
-		}
-		
-		public String getUri() {
-			return uri;
-		}
-		
-		public void setUri(String uri) {
-			this.uri = uri;
-		}
-		
 	}
 	
 	@ExceptionHandler(NoSuchElementException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
-	public ExceptionMessage handleNoSuchElementException(NoSuchElementException err, WebRequest httpRequest) {
+	public ExceptionMessage handleNoSuchElementException(
+						NoSuchElementException err, WebRequest httpRequest) {
 		return buildExceptionMessage(err, HttpStatus.NOT_FOUND, httpRequest, LogStatus.MESSAGE_ONLY);
 	}
 
@@ -91,14 +51,13 @@ public class GlobalErrorHandler {
 			uri = swr.getRequest().getRequestURI();
 		}
 		if(logStatus == LogStatus.MESSAGE_ONLY) {
-			log.error("Exception: {}", err.toString());
+			log.error("Exception {}", err.toString());
 		}
 		else {
-			log.error("Exception: ", err);
+			log.error("Exception {}", err);
 		}
 		
 		ExceptionMessage exeMess = new ExceptionMessage();
-		
 		exeMess.setMessage(message);
 		exeMess.setHttpReason(httpReason);
 		exeMess.setHttpCode(httpCode);
