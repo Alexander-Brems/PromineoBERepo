@@ -15,7 +15,7 @@ public class CollegeStudent {
 	private Integer studentID;
 	private String firstName;
 	private String lastName;
-	private Integer phoneNumber;
+	private String phoneNumber;
 	private String email;
 	
 	private Set<CollegeClass> classes = new HashSet<>();

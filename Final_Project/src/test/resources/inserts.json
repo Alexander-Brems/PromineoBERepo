@@ -1,0 +1,79 @@
+	{
+		"firstName": "Jon",
+		"lastName": "Doe",
+		"department": "CS",
+		"hasTenure": 1,
+		"phoneNumber": "7208724328",
+		"email": "JD87@gmail.com"
+	},
+	
+	{
+		"firstName": "Olivia",
+		"lastName": "Pauling",
+		"department": "Math",
+		"hasTenure": 0,
+		"phoneNumber": "8769164816",
+		"email": "mPauling1922@gmail.com"
+	},
+	
+	{
+		"classTitle": "CS101",
+		"department": "CS",
+		"weekdays": "MWF",
+		"startTime": "9:00 AM",
+		"endTime": "9:50 AM"
+	}, 
+	
+	{
+		"classTitle": "CS200",
+		"department": "CS",
+		"weekdays": "MWF",
+		"startTime": "10:15 AM",
+		"endTime": "11:05 AM"
+	}, 
+	
+	{
+		"classTitle": "Math101",
+		"department": "Math",
+		"weekdays": "TH",
+		"startTime": "10:00 AM",
+		"endTime": "11:40 AM"
+	}, 
+	
+	{
+		"firstName": "Medic",
+		"lastName": "Red",
+		"phoneNumber": "1785632976",
+		"email": "RedMed@gmail.com",
+		"classes": [
+			
+			]
+	},
+	
+	{
+		"firstName": "Medic",
+		"lastName": "Red",
+		"phoneNumber": 1785632976,
+		"email": "RedMed@gmail.com",
+		"classes":
+		[{
+			"classID": 2
+		},
+		{
+			"classID": 4
+		}]
+	},
+	
+	{
+		"firstName": "Spy",
+		"lastName": "Blu",
+		"phoneNumber": 5642863498,
+		"email": "BluSpy@gmail.com",
+		"classes":
+		[{
+			"classID": 3
+		},
+		{
+			"classID": 4
+		}]
+	}

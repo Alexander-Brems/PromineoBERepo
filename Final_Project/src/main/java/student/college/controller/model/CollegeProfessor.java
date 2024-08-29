@@ -13,7 +13,7 @@ public class CollegeProfessor {
 	private String lastName;
 	private String department;
 	private Boolean hasTenure;
-	private Integer phoneNumber;
+	private String phoneNumber;
 	private String email;
 	
 	public CollegeProfessor(Professor newProf) {

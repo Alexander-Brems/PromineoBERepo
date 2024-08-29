@@ -24,10 +24,10 @@ public class Professor {
 	private String lastName;
 	private String department;
 	private Boolean hasTenure;
-	private Integer phoneNumber;
+	private String phoneNumber;
 	private String email;
 	
-	@OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private Set<Class> classes = new HashSet<>();

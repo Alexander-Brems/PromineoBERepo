@@ -28,7 +28,7 @@ public class Class {
 	private String startTime;
 	private String endTime;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "professor_id")
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude

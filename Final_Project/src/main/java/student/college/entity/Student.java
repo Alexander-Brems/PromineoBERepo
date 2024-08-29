@@ -24,7 +24,7 @@ public class Student {
 	private Integer studentID;
 	private String firstName;
 	private String lastName;
-	private Integer phoneNumber;
+	private String phoneNumber;
 	private String email;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)

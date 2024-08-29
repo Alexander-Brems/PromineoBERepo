@@ -4,7 +4,6 @@ package student.college.controller.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import student.college.entity.Class;
-import student.college.entity.Professor;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +15,7 @@ public class CollegeClass {
 	private String weekdays;
 	private String startTime;
 	private String endTime;
-	private Professor teacher;
+	private CollegeProfessor teacher;
 	
 	public CollegeClass(Class newClass) {
 		this.setClassID(newClass.getClassID());
@@ -25,7 +24,7 @@ public class CollegeClass {
 		this.setWeekdays(newClass.getWeekdays());
 		this.setStartTime(newClass.getStartTime());
 		this.setEndTime(newClass.getEndTime());
-		this.setTeacher(newClass.getTeacher());
+		this.teacher = new CollegeProfessor(newClass.getTeacher());
 	}
 
 }
